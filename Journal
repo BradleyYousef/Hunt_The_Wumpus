@@ -1,0 +1,8 @@
+27/5/2025 - Tutorial lesson - made repository and set up the main files for the Hunt The Wumpus project. 
+Spent some time learning about the 1973 original game.
+Created the cave class document and wrote the first attrbutes(name and description)
+30/5/2025 - Tutorial lesson - Write the main.py program to call the class and make the first cave object.
+Modified the attributes to be set up on initialisation.
+Wrote setter and getter methods for each attribute. Startedc planning the layout of the caves.
+2/6/2025 - Tutorial lesson - Wrote a dictionary attribute to store the links to other cave objects/ 
+Wrote and tested a method to print the linked_caves ditionary to the terminal.
