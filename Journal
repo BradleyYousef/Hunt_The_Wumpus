@@ -6,3 +6,6 @@ Modified the attributes to be set up on initialisation.
 Wrote setter and getter methods for each attribute. Startedc planning the layout of the caves.
 2/6/2025 - Tutorial lesson - Wrote a dictionary attribute to store the links to other cave objects/ 
 Wrote and tested a method to print the linked_caves ditionary to the terminal.
+3/6/2025 - Added code to the main program to allow the player to move between different cave objects.
+Set up a new Character class and test program.
+Created 'Harry - The smelly Wumpus' in the test program and tested the conversation method.

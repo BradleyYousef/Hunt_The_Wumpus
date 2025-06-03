@@ -1,4 +1,5 @@
-from cave import Cave
+"""The main program for Hunt The Wumpus"""
+from cave import Cave #Imports the cave class from the cave.py file
 
 cavern = Cave("Cavern")
 cavern.set_description("A damp and dirty cave")
@@ -18,4 +19,4 @@ while True:
     current_cave.get_details()
     command = input("> ")
     current_cave = current_cave.move(command)
-    
+#End-of-file (EOF)
