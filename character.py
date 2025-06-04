@@ -2,6 +2,7 @@
 class Character:
     """Class for creating characters"""
     def __init__(self, char_name, char_description):
+        """Constructs the character"""
         self.name = char_name
         self.description = char_description
         self.conversation = None
@@ -26,3 +27,8 @@ class Character:
         """Method for fighting characters"""
         print(self.name + " doesn't want to fight you")
         return True
+
+class Enemy(Character):
+    """Used for making the baddies in Hunt The Wumpus"""
+    def __init__(self, char_name, char_description):
+        super().__init__(char_name, char_description)
