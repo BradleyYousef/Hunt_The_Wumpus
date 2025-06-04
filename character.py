@@ -32,3 +32,21 @@ class Enemy(Character):
     """Used for making the baddies in Hunt The Wumpus"""
     def __init__(self, char_name, char_description):
         super().__init__(char_name, char_description)
+        self.weakness = None
+
+    def set_weakness(self, item_weakness):
+        """Sets the weakness for the enemy"""
+        self.weakness = item_weakness
+
+    def get_weakness(self):
+        """Gets the weakness for the enemy"""
+        return self.weakness
+
+    def fight(self, combat_item):
+        """Method to fight the Wumpus's"""
+        if combat_item == self.weakness:
+            print("You fend off " + self.name + " with the " + combat_item)
+            return True
+        else:
+            print(self.name + " swallows you whole! You died.")
+            return False

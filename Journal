@@ -9,3 +9,4 @@ Wrote and tested a method to print the linked_caves ditionary to the terminal.
 3/6/2025 - Added code to the main program to allow the player to move between different cave objects.
 Set up a new Character class and test program.
 Created 'Harry - The smelly Wumpus' in the test program and tested the conversation method.
+4/6/2025 - Created the enemy subclass of the character class. Added the ablity to fight a Wumpus. Also allowed for the player to die from fighting the Wumpus with the wrong weapon. Modified the character testing program to include the features of the enemy subclass and the fighting method. Added a way to set up the weakness of a character and learned about the super() function.
