@@ -5,6 +5,7 @@ class Cave:
         self.name = cave_name
         self.description = None
         self.linked_caves = {}
+        self.character = None
 
     def set_name(self, cave_name):
         """Sets the name of the cave"""
@@ -46,4 +47,13 @@ class Cave:
         else:
             print("You can't go that way")
             return self
+
+    def get_character(self):
+        """Gets the current character in the cave"""
+        return self.character
+
+    def set_character(self, new_character):
+        """Sets the current character in the cave"""
+        self.character = new_character
+
 #End-of-file (EOF)
