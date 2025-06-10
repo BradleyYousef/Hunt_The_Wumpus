@@ -20,7 +20,8 @@ dungeon.link_caves(grotto, "West")
 grotto.link_caves(dungeon, "East")
 
 current_cave = cavern
-while True:
+dead = False
+while dead is False:
     print("\n")
     current_cave.get_details()
     inhabited = current_cave.get_character()
@@ -40,6 +41,6 @@ while True:
                 current_cave.set_character(None)
             else:
                 print("You have been defeated. GAME OVER")
-                exit()
+                dead = True
             #Fights with the enemy
 #End-of-file (EOF)
