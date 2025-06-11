@@ -9,7 +9,7 @@ grotto.set_description("A small cave with ancient markings")
 dungeon = Cave("Dungeon")
 dungeon.set_description("A large cave with a rack")
 mineshaft = Cave("Mineshaft Entrance")
-
+mineshaft.set_description("The entrance into the ancient Wumpus caves")
 fork = Cave("Fork In The Road")
 fork.set_description("A fork in the caves pathway")
 grand = Cave("Grand Marsh")
@@ -29,19 +29,21 @@ stairway.set_description("A royal stairway with many armour stands lining the pa
 citadel = Cave("Citadel")
 citadel.set_description("The former sanctuary for civilisation")
 path = Cave("Ruined Pathway")
-path.set_description("")
+path.set_description("A pathway eroded by time")
 shrine = Cave("Ancient Shrine")
-shrine
+shrine.set_description("A shrine to the ancient sky lords")
 insides = Cave("Ancient Shrine Insides")
-insides
+insides.set_description("A secret area hidden behind the ancient shrine")
 highland = Cave("Highland Glades")
-highland
+highland.set_description("A windswept grassland")
 city = Cave("Sky City")
-city
+city.set_description("A city in the clouds filled with the surviving people")
 temple = Cave("Sky Temple")
-temple
+temple.set_description("The temple to the last sky lord from ancient times")
 arena = Cave("Sky Arena")
-arena
+arena.set_description("The skyland's colossuem")
+swamp = Cave("Gladiator's Swamp")
+swamp.set_description("A swamp filled with moss and wumpus to fight")
 
 
 harry = Enemy("Harry", "A dirty, smelly Wumpus")
@@ -49,10 +51,12 @@ harry.set_conversation("Come closer. I cannot see you.")
 harry.set_weakness("vegemite")
 dungeon.set_character(harry)
 
-cavern.link_caves(dungeon, "South")
+cavern.link_caves(mineshaft, "North")
+cavern.link_caves(fork, "South")
+grotto.link_caves(fork, "East")
+grotto.link_caves(grand, "West")
 
-
-current_cave = cavern
+current_cave = mineshaft
 dead = False
 while dead is False:
     print("\n")
