@@ -46,10 +46,10 @@ swamp = Cave("Gladiator's Swamp")
 swamp.set_description("A swamp filled with moss and wumpus to fight")
 
 
-#harry = Enemy("Harry", "A dirty, smelly Wumpus")
-#harry.set_conversation("Come closer. I cannot see you.")
-#harry.set_weakness("vegemite")
-#dungeon.set_character(harry)
+harry = Enemy("Harry", "A dirty, smelly Wumpus")
+harry.set_conversation("Come closer. I cannot see you.")
+harry.set_weakness("vegemite")
+swamp.set_character(harry)
 
 cavern.link_caves(mineshaft, "North")
 cavern.link_caves(fork, "South")
