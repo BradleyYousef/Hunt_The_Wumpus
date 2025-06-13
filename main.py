@@ -1,6 +1,7 @@
 """The main program for Hunt The Wumpus"""
 from cave import Cave #Imports the cave class from the cave.py file
 from character import Enemy #Imports the enemy class from the character.py file
+from character import Character #Imports the character class from the character.py file
 
 cavern = Cave("Cavern")
 cavern.set_description("A damp and dirty cave")
@@ -49,7 +50,11 @@ swamp.set_description("A swamp filled with moss and wumpus to fight")
 harry = Enemy("Harry", "A dirty, smelly Wumpus")
 harry.set_conversation("Come closer. I cannot see you.")
 harry.set_weakness("vegemite")
-swamp.set_character(harry)
+fork.set_character(harry)
+
+shopkeep = Character("Shopman", "A salesman to help you on your journey")
+shopkeep.set_conversation("Hello traveler I have some items to sell you for your Wump coins")
+shopkeeper.set_character(shopkeep)
 
 cavern.link_caves(mineshaft, "North")
 cavern.link_caves(fork, "South")
@@ -101,11 +106,17 @@ while dead is False:
     inhabited = current_cave.get_character()
     if inhabited is not None:
         inhabited.describe()
+        if inhabited is not None and isinstance(inhabited, Enemy):
+            print("You can fight this character")
+        elif inhabited is not Enemy:
+            print("You can talk to this character")
+    print("\nYou have options for what to do")
+    print(current_cave.get_character)
     command = input("> ")
     if command in ["North", "South", "West", "East"]:
         current_cave = current_cave.move(command)
     elif command == "Talk":
-        if inhabited is True:
+        if inhabited is not None:
             inhabited.talk()
     elif command == "Fight":
         if inhabited is not None and isinstance(inhabited, Enemy):

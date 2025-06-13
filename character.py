@@ -50,3 +50,7 @@ class Enemy(Character):
         else:
             print(self.name + " swallows you whole! You died.")
             return False
+
+#class Ally(Character):
+ #   """Class for ally characters"""
+  ##     super().__init__(char_name, char_description)
