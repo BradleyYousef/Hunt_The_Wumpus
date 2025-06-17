@@ -5,7 +5,8 @@ class Cave:
         self.name = cave_name
         self.description = None
         self.linked_caves = {}
-        self.character = None
+        self.character1 = None
+        self.character2 = None
 
     def set_name(self, cave_name):
         """Sets the name of the cave"""
@@ -48,12 +49,20 @@ class Cave:
             print("You can't go that way")
             return self
 
-    def get_character(self):
+    def get_character1(self):
         """Gets the current character in the cave"""
-        return self.character
+        return self.character1
 
-    def set_character(self, new_character):
+    def set_character1(self, new_character):
         """Sets the current character in the cave"""
-        self.character = new_character
+        self.character1 = new_character
+
+    def get_character2(self):
+        """Gets the current character in the cave"""
+        return self.character2
+
+    def set_character2(self, new_character):
+        """Sets the current character in the cave"""
+        self.character2 = new_character
 
 #End-of-file (EOF)

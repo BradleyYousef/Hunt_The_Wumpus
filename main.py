@@ -48,62 +48,73 @@ swamp.set_description("A swamp filled with moss and wumpus to fight")
 
 
 harry = Enemy("Harry", "A dirty, smelly Wumpus")
-harry.set_conversation("Come closer. I cannot see you.")
+harry.set_conversation("At this fork in the road there is a giant hole to steep to go down normally and a large grotto that I will eat you in.")
 harry.set_weakness("vegemite")
-fork.set_character(harry)
+harry.set_health(10)
+fork.set_character1(harry)
+
+larry = Enemy("Larry", "An asian Wumpus")
+larry.set_conversation("You killed harry. I am Larry and I'm gonna eat your dog")
+larry.set_weakness("engrish")
+larry.set_health(10)
+cavern.set_character2(larry)
+
 
 shopkeep = Character("Shopman", "A salesman to help you on your journey")
 shopkeep.set_conversation("Hello traveler I have some items to sell you for your Wump coins")
-shopkeeper.set_character(shopkeep)
+shopkeeper.set_character1(shopkeep)
 
-cavern.link_caves(mineshaft, "North")
-cavern.link_caves(fork, "South")
-grotto.link_caves(fork, "East")
-grotto.link_caves(grand, "West")
-dungeon.link_caves(citadel, "North")
-mineshaft.link_caves(highland, "North")
-mineshaft.link_caves(cavern, "South")
-fork.link_caves(cavern, "North")
-fork.link_caves(grotto, "West")
-fork.link_caves(hole, "East")
-grand.link_caves(grotto, "East")
-grand.link_caves(library, "North")
-grand.link_caves(thicket, "West")
-grand.link_caves(dump, "South")
-library.link_caves(grand, "South")
-thicket.link_caves(grand, "East")
-thicket.link_caves(swamp, "West")
-dump.link_caves(grand, "North")
-dump.link_caves(shopkeeper, "South")
-shopkeeper.link_caves(dump, "North")
-hole.link_caves(fork, "West")
-hole.link_caves(stairway, "East")
-stairway.link_caves(hole, "West")
-stairway.link_caves(citadel, "East")
-citadel.link_caves(stairway, "West")
-citadel.link_caves(path, "East")
-citadel.link_caves(dungeon, "South")
-path.link_caves(citadel, "West")
-path.link_caves(shrine, "East")
-shrine.link_caves(path, "West")
-shrine.link_caves(insides, "North")
-insides.link_caves(shrine, "South")
-highland.link_caves(mineshaft, "South")
-highland.link_caves(city, "North")
-city.link_caves(highland, "South")
-city.link_caves(arena, "West")
-city.link_caves(temple, "East")
-temple.link_caves(city, "West")
-arena.link_caves(city, "East")
-swamp.link_caves(thicket, "East")
+cavern.link_caves(mineshaft, "north")
+cavern.link_caves(fork, "south")
+grotto.link_caves(fork, "east")
+grotto.link_caves(grand, "west")
+dungeon.link_caves(citadel, "north")
+mineshaft.link_caves(highland, "north")
+mineshaft.link_caves(cavern, "south")
+fork.link_caves(cavern, "north")
+fork.link_caves(grotto, "west")
+fork.link_caves(hole, "east")
+grand.link_caves(grotto, "east")
+grand.link_caves(library, "north")
+grand.link_caves(thicket, "west")
+grand.link_caves(dump, "south")
+library.link_caves(grand, "south")
+thicket.link_caves(grand, "east")
+thicket.link_caves(swamp, "west")
+dump.link_caves(grand, "north")
+dump.link_caves(shopkeeper, "south")
+shopkeeper.link_caves(dump, "north")
+hole.link_caves(fork, "west")
+hole.link_caves(stairway, "east")
+stairway.link_caves(hole, "west")
+stairway.link_caves(citadel, "east")
+citadel.link_caves(stairway, "west")
+citadel.link_caves(path, "east")
+citadel.link_caves(dungeon, "south")
+path.link_caves(citadel, "west")
+path.link_caves(shrine, "east")
+shrine.link_caves(path, "west")
+shrine.link_caves(insides, "north")
+insides.link_caves(shrine, "south")
+highland.link_caves(mineshaft, "south")
+highland.link_caves(city, "north")
+city.link_caves(highland, "south")
+city.link_caves(arena, "west")
+city.link_caves(temple, "east")
+temple.link_caves(city, "west")
+arena.link_caves(city, "east")
+swamp.link_caves(thicket, "east")
 
+pendant_quantity = 0
 
 current_cave = mineshaft
 dead = False
 while dead is False:
     print("\n")
     current_cave.get_details()
-    inhabited = current_cave.get_character()
+    inhabited = current_cave.character1
+#    if current_cave.character1 is None:
+#        current_cave.set_character2
     if inhabited is not None:
         inhabited.describe()
         if inhabited is not None and isinstance(inhabited, Enemy):
@@ -111,19 +122,20 @@ while dead is False:
         elif inhabited is not Enemy:
             print("You can talk to this character")
     print("\nYou have options for what to do")
-    print(current_cave.get_character)
-    command = input("> ")
-    if command in ["North", "South", "West", "East"]:
+    print(current_cave.get_character1) #try working here nxt
+    command = input("> ").lower()
+    if command in ["north", "south", "west", "east"]:
         current_cave = current_cave.move(command)
-    elif command == "Talk":
+    elif command == "talk":
         if inhabited is not None:
             inhabited.talk()
-    elif command == "Fight":
+    elif command == "fight":
         if inhabited is not None and isinstance(inhabited, Enemy):
             fight_with = input("What do you want to fight with?: ")
             if inhabited.fight(fight_with) is True:
                 print("Bravo, you win the battle.")
-                current_cave.set_character(None)
+                current_cave.set_character1(None)
+                inhabited = current_cave.set_character2
             else:
                 print("You have been defeated. GAME OVER")
                 dead = True

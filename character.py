@@ -6,6 +6,7 @@ class Character:
         self.name = char_name
         self.description = char_description
         self.conversation = None
+        self.health = None
 
     def describe(self):
         """Method to display the attributes of the character"""
@@ -27,6 +28,15 @@ class Character:
         """Method for fighting characters"""
         print(self.name + " doesn't want to fight you")
         return True
+    
+    def set_health(self, health_points):
+        """Sets the characters health points"""
+        self.health = health_points
+
+    def death(self):
+        """Kills the character after their health is too low"""
+        if self.health <= 0:
+            return True
 
 class Enemy(Character):
     """Used for making the baddies in Hunt The Wumpus"""
@@ -45,11 +55,20 @@ class Enemy(Character):
     def fight(self, combat_item):
         """Method to fight the Wumpus's"""
         if combat_item == self.weakness:
+            self.health - 10
             print("You fend off " + self.name + " with the " + combat_item)
             return True
         else:
             print(self.name + " swallows you whole! You died.")
             return False
+    
+#    def set_drop(self, loot_item):
+#        """Sets the loot item for an enemy"""
+#        self.drop == loot_item
+
+#    def loot(self):
+  #      """Gives the loot item to the player"""
+  #      if isinstance.__closure__  
 
 #class Ally(Character):
  #   """Class for ally characters"""
