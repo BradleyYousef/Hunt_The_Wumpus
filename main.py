@@ -2,6 +2,11 @@
 from cave import Cave #Imports the cave class from the cave.py file
 from character import Enemy #Imports the enemy class from the character.py file
 from character import Character #Imports the character class from the character.py file
+import os #Imports the operating system
+
+def clear_console():
+    """Clear the console function that clears the screen"""
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 cavern = Cave("Cavern")
 cavern.set_description("A damp and dirty cave")
@@ -57,12 +62,16 @@ larry = Enemy("Larry", "An asian Wumpus")
 larry.set_conversation("You killed harry. I am Larry and I'm gonna eat your dog")
 larry.set_weakness("engrish")
 larry.set_health(10)
-cavern.set_character2(larry)
-
+fork.set_character2(larry)
 
 shopkeep = Character("Shopman", "A salesman to help you on your journey")
 shopkeep.set_conversation("Hello traveler I have some items to sell you for your Wump coins")
-shopkeeper.set_character1(shopkeep)
+shopkeeper.set_character2(shopkeep)
+
+guard_puppy = Enemy("Guard puppy", "A puppy wumpus that is holding the shopkeeper captive")
+guard_puppy.set_health(10)
+guard_puppy.set_weakness("bone")
+shopkeeper.set_character1(guard_puppy)
 
 cavern.link_caves(mineshaft, "north")
 cavern.link_caves(fork, "south")
@@ -106,6 +115,7 @@ arena.link_caves(city, "east")
 swamp.link_caves(thicket, "east")
 
 pendant_quantity = 0
+wump_coins = 0
 
 current_cave = mineshaft
 dead = False
@@ -121,23 +131,27 @@ while dead is False:
             print("You can fight this character")
         elif inhabited is not Enemy:
             print("You can talk to this character")
-    print("\nYou have options for what to do")
-    print(current_cave.get_character1) #try working here nxt
+    print("\nWhat would you like to do?: ")
     command = input("> ").lower()
     if command in ["north", "south", "west", "east"]:
         current_cave = current_cave.move(command)
+        clear_console()
     elif command == "talk":
         if inhabited is not None:
+            clear_console()
             inhabited.talk()
     elif command == "fight":
         if inhabited is not None and isinstance(inhabited, Enemy):
             fight_with = input("What do you want to fight with?: ")
             if inhabited.fight(fight_with) is True:
-                print("Bravo, you win the battle.")
-                current_cave.set_character1(None)
-                inhabited = current_cave.set_character2
+                print("\nBravo, you win the battle.")
+                current_cave.character1 = current_cave.character2
+                input("\nPress enter to continue...")
+                clear_console()
             else:
                 print("You have been defeated. GAME OVER")
                 dead = True
             #Fights with the enemy
+    else:
+        clear_console()
 #End-of-file (EOF)
