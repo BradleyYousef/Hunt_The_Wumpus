@@ -2,11 +2,16 @@
 from cave import Cave #Imports the cave class from the cave.py file
 from character import Enemy #Imports the enemy class from the character.py file
 from character import Character #Imports the character class from the character.py file
+from character import Salesman #Imports the salesman class from the character.py file
 import os #Imports the operating system
 
 def clear_console():
     """Clear the console function that clears the screen"""
     os.system('cls' if os.name == 'nt' else 'clear')
+
+pendant_quantity = 0
+wump_coins = 0
+wump_coins_amount = str(wump_coins)
 
 cavern = Cave("Cavern")
 cavern.set_description("A damp and dirty cave")
@@ -64,14 +69,20 @@ larry.set_weakness("engrish")
 larry.set_health(10)
 fork.set_character2(larry)
 
-shopkeep = Character("Shopman", "A salesman to help you on your journey")
-shopkeep.set_conversation("Hello traveler I have some items to sell you for your Wump coins")
+shopkeep = Salesman("Shopman", "A salesman to help you on your journey")
+shopkeep.set_conversation("Hello traveler I have some items to sell you for your Wump coins\nYou have: " + wump_coins_amount + " Wump coins to trade")
 shopkeeper.set_character2(shopkeep)
 
 guard_puppy = Enemy("Guard puppy", "A puppy wumpus that is holding the shopkeeper captive")
 guard_puppy.set_health(10)
 guard_puppy.set_weakness("bone")
 shopkeeper.set_character1(guard_puppy)
+
+test_shopkeep = Salesman("Test Shop", "A tester shopkeeper")
+test_shopkeep.set_conversation("Hiya wanna buy smth gangster")
+test_shopkeep.set_good("pendant")
+test_shopkeep.set_price(30)
+cavern.set_character1(test_shopkeep)
 
 cavern.link_caves(mineshaft, "north")
 cavern.link_caves(fork, "south")
@@ -114,9 +125,6 @@ temple.link_caves(city, "west")
 arena.link_caves(city, "east")
 swamp.link_caves(thicket, "east")
 
-pendant_quantity = 0
-wump_coins = 0
-
 current_cave = mineshaft
 dead = False
 while dead is False:
@@ -146,12 +154,24 @@ while dead is False:
             if inhabited.fight(fight_with) is True:
                 print("\nBravo, you win the battle.")
                 current_cave.character1 = current_cave.character2
+                current_cave.character2 = None
                 input("\nPress enter to continue...")
                 clear_console()
             else:
                 print("You have been defeated. GAME OVER")
                 dead = True
             #Fights with the enemy
+    elif command == "shop":
+        if inhabited is not None and isinstance(inhabited, Salesman):
+            clear_console()
+            inhabited.get_shop_details()
+            want_to_buy = input("Would you like to purchase the item?: ").lower
+            if want_to_buy == "yes":
+                print("You have purchased " + inhabited.shop_string + " for " + inhabited.good_price_string)
+                input("\nPress enter to continue...")
+            if want_to_buy == "no":
+                print("Okay come again.")
+                input("\nPress enter to continue...")
     else:
         clear_console()
 #End-of-file (EOF)

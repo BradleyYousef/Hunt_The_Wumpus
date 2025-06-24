@@ -15,7 +15,7 @@ class Character:
 
     def set_conversation(self, conversation):
         """Method to set what the character can say"""
-        self.conversation = conversation
+        self.conversation = str(conversation)
 
     def talk(self):
         """Method to allow the character to talk"""
@@ -37,6 +37,37 @@ class Character:
         """Kills the character after their health is too low"""
         if self.health <= 0:
             return True
+
+class Salesman(Character):
+    """Creates the characters that interact with the player to give or buy items"""
+    def __init__(self, char_name, char_description):
+        super().__init__(char_name, char_description)
+        self.shop = None
+        self.good_price = 0
+        self.shop_string = str(self.shop)
+        self.good_price_string = str(self.good_price)
+
+    def set_good(self, sold_good):
+        """Sets the good that a specific npc will sell"""
+        self.shop = sold_good
+    
+    def get_good(self):
+        """Returns the good that an npc is selling"""
+        return self.shop
+    
+    def set_price(self, good_value):
+        """Sets the value of a specific salesman's good"""
+        self.good_price = good_value
+    
+    def get_price(self):
+        """Gets the price that a salesman sells things for"""
+        return self.good_price
+    
+    def get_shop_details(self):
+        """Prints the shop for an npc"""
+        print("Testing shop\nItem being sold")
+        print("\n--------")
+        print(self.shop_string + " is being sold for " + self.good_price_string + " wump coins")
 
 class Enemy(Character):
     """Used for making the baddies in Hunt The Wumpus"""
