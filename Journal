@@ -17,3 +17,4 @@ Created 'Harry - The smelly Wumpus' in the test program and tested the conversat
 17/6/2025 - Made a lot of changes i'll write about later
 18/06/2025 - Got the second character appearing after the first one is defeated feature to work. Created wump coins variable and added clear console function.
 24/06/2025 - worked on shopkeepers finish this
+27/06/2025 - Worked on the shopkeepers more. Made the transaction take away wump coins depending on the goods amount. Aiming to make the transadction impact the amount of an item that the player has. thinkking of trying the same way i did with the wump coins or with more if statements and connections like the fight with function.

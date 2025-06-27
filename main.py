@@ -10,8 +10,7 @@ def clear_console():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 pendant_quantity = 0
-wump_coins = 0
-wump_coins_amount = str(wump_coins)
+wump_coins = 30
 
 cavern = Cave("Cavern")
 cavern.set_description("A damp and dirty cave")
@@ -70,7 +69,7 @@ larry.set_health(10)
 fork.set_character2(larry)
 
 shopkeep = Salesman("Shopman", "A salesman to help you on your journey")
-shopkeep.set_conversation("Hello traveler I have some items to sell you for your Wump coins\nYou have: " + wump_coins_amount + " Wump coins to trade")
+shopkeep.set_conversation("Hello traveler I have some items to sell you for your Wump coins\nYou have: " + str(wump_coins) + " Wump coins to trade")
 shopkeeper.set_character2(shopkeep)
 
 guard_puppy = Enemy("Guard puppy", "A puppy wumpus that is holding the shopkeeper captive")
@@ -130,6 +129,8 @@ dead = False
 while dead is False:
     print("\n")
     current_cave.get_details()
+    print(wump_coins)
+    print(pendant_quantity)
     inhabited = current_cave.character1
 #    if current_cave.character1 is None:
 #        current_cave.set_character2
@@ -165,10 +166,15 @@ while dead is False:
         if inhabited is not None and isinstance(inhabited, Salesman):
             clear_console()
             inhabited.get_shop_details()
-            want_to_buy = input("Would you like to purchase the item?: ").lower
+            want_to_buy = input("Would you like to purchase the item?: ")
             if want_to_buy == "yes":
-                print("You have purchased " + inhabited.shop_string + " for " + inhabited.good_price_string)
-                input("\nPress enter to continue...")
+                if wump_coins > 0 and wump_coins >= inhabited.good_price:
+                    print("You have purchased " + str(inhabited.get_good()) + " for " + str(inhabited.get_price))
+                    wump_coins -= inhabited.good_price
+                    input("\nPress enter to continue...")
+                else:
+                    print("You are too poor to buy " + str(inhabited.shop) + ". Come back after you fight some wumpus's with their wump coins")
+                    input("\nPress enter to continue...")
             if want_to_buy == "no":
                 print("Okay come again.")
                 input("\nPress enter to continue...")

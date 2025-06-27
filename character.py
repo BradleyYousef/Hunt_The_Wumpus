@@ -44,8 +44,6 @@ class Salesman(Character):
         super().__init__(char_name, char_description)
         self.shop = None
         self.good_price = 0
-        self.shop_string = str(self.shop)
-        self.good_price_string = str(self.good_price)
 
     def set_good(self, sold_good):
         """Sets the good that a specific npc will sell"""
@@ -67,7 +65,12 @@ class Salesman(Character):
         """Prints the shop for an npc"""
         print("Testing shop\nItem being sold")
         print("\n--------")
-        print(self.shop_string + " is being sold for " + self.good_price_string + " wump coins")
+        print(str(self.get_good()) + " is being sold for " + str(self.get_price()) + " wump coins")
+    
+    def good_sold(self):
+        """Used to define what variable the sold good impacts"""
+        
+
 
 class Enemy(Character):
     """Used for making the baddies in Hunt The Wumpus"""
