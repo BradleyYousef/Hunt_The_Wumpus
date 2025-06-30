@@ -171,6 +171,8 @@ while dead is False:
                 if wump_coins > 0 and wump_coins >= inhabited.good_price:
                     print("You have purchased " + str(inhabited.get_good()) + " for " + str(inhabited.get_price))
                     wump_coins -= inhabited.good_price
+                    if inhabited.shop == ("pendant"):
+                        pendant_quantity += 1
                     input("\nPress enter to continue...")
                 else:
                     print("You are too poor to buy " + str(inhabited.shop) + ". Come back after you fight some wumpus's with their wump coins")
