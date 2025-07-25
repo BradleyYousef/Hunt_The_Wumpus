@@ -3,14 +3,16 @@ from cave import Cave #Imports the cave class from the cave.py file
 from character import Enemy #Imports the enemy class from the character.py file
 from character import Character #Imports the character class from the character.py file
 from character import Salesman #Imports the salesman class from the character.py file
+from inventory import Inventory #Imports the inventory class from the inventory.py file
 import os #Imports the operating system
 
 def clear_console():
     """Clear the console function that clears the screen"""
     os.system('cls' if os.name == 'nt' else 'clear')
 
-pendant_quantity = 0
-wump_coins = 30
+pendant = Inventory("pendant")
+pendant.set("0")
+pendant.make_object_price("30")
 
 cavern = Cave("Cavern")
 cavern.set_description("A damp and dirty cave")
@@ -129,8 +131,6 @@ dead = False
 while dead is False:
     print("\n")
     current_cave.get_details()
-    print(wump_coins)
-    print(pendant_quantity)
     inhabited = current_cave.character1
 #    if current_cave.character1 is None:
 #        current_cave.set_character2
