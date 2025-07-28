@@ -10,9 +10,15 @@ def clear_console():
     """Clear the console function that clears the screen"""
     os.system('cls' if os.name == 'nt' else 'clear')
 
+wump_coins = Inventory("coin")
+wump_coins.set_obj_quantity("0")
+wump_coins.set_obj_price("1")
+wump_coins_quantity = wump_coins.quantity
+
 pendant = Inventory("pendant")
-pendant.set("0")
-pendant.make_object_price("30")
+pendant.set_obj_quantity("0")
+pendant.set_obj_price("30")
+pendant_price = pendant.get_object_price
 
 cavern = Cave("Cavern")
 cavern.set_description("A damp and dirty cave")
@@ -81,8 +87,8 @@ shopkeeper.set_character1(guard_puppy)
 
 test_shopkeep = Salesman("Test Shop", "A tester shopkeeper")
 test_shopkeep.set_conversation("Hiya wanna buy smth gangster")
-test_shopkeep.set_good("pendant")
-test_shopkeep.set_price(30)
+test_shopkeep.set_good(pendant)
+test_shopkeep.set_price(pendant_price)
 cavern.set_character1(test_shopkeep)
 
 cavern.link_caves(mineshaft, "north")
@@ -168,11 +174,11 @@ while dead is False:
             inhabited.get_shop_details()
             want_to_buy = input("Would you like to purchase the item?: ")
             if want_to_buy == "yes":
-                if wump_coins > 0 and wump_coins >= inhabited.good_price:
+                if 1 + 1 == 2: #wump_coins_quantity > 0 and wump_coins_quantity >= inhabited.good_price:
                     print("You have purchased " + str(inhabited.get_good()) + " for " + str(inhabited.get_price))
                     wump_coins -= inhabited.good_price
                     if inhabited.shop == ("pendant"):
-                        pendant_quantity += 1
+                        pendant.set_obj_quantity += 1
                     input("\nPress enter to continue...")
                 else:
                     print("You are too poor to buy " + str(inhabited.shop) + ". Come back after you fight some wumpus's with their wump coins")

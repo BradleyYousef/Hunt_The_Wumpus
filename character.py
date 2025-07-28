@@ -1,3 +1,4 @@
+from inventory import Inventory #Imports the inventory class from the inventory.py file
 """Class for the characters in Hunt The Wumpus"""
 class Character:
     """Class for creating characters"""
@@ -65,7 +66,7 @@ class Salesman(Character):
         """Prints the shop for an npc"""
         print("Testing shop\nItem being sold")
         print("\n--------")
-        print(str(self.get_good()) + " is being sold for " + str(self.get_price()) + " wump coins")
+        print(str(self.get_good()) + " is being sold for " + str(Inventory.get_object_price) + " wump coins")
     
     def good_sold(self):
         """Used to define what variable the sold good impacts"""
