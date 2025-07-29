@@ -13,13 +13,16 @@ def clear_console():
 wump_coins = Inventory("coin", "wump coin")
 wump_coins.set_obj_quantity("60")
 wump_coins.set_obj_price("0")
-wump_coins_quantity = int(wump_coins.get_object_quantity())
 
 pendant = Inventory("pendant", "test pendant")
 pendant.set_obj_quantity("0")
 pendant.set_obj_price("30")
 pendant_price = int(pendant.get_object_price())
-pendant_quantity = int(pendant.get_object_quantity())
+
+library_key = Inventory("lib_key", "Library Key")
+library_key.set_obj_quantity("0")
+library_key.set_obj_price("30")
+library_key_price = int(library_key.get_object_price())
 
 cavern = Cave("Cavern")
 cavern.set_description("A damp and dirty cave")
@@ -64,35 +67,6 @@ arena.set_description("The skyland's colossuem")
 swamp = Cave("Gladiator's Swamp")
 swamp.set_description("A swamp filled with moss and wumpus to fight")
 
-
-harry = Enemy("Harry", "A dirty, smelly Wumpus")
-harry.set_conversation("At this fork in the road there is a giant hole to steep to go down normally and a large grotto that I will eat you in.")
-harry.set_weakness("vegemite")
-harry.set_health(10)
-fork.set_character1(harry)
-
-larry = Enemy("Larry", "An asian Wumpus")
-larry.set_conversation("You killed harry. I am Larry and I'm gonna eat your dog")
-larry.set_weakness("engrish")
-larry.set_health(10)
-fork.set_character2(larry)
-
-shopkeep = Salesman("Shopman", "A salesman to help you on your journey")
-shopkeep.set_conversation("Hello traveler I have some items to sell you for your Wump coins\nYou have: " + str(wump_coins) + " Wump coins to trade")
-shopkeeper.set_character2(shopkeep)
-
-guard_puppy = Enemy("Guard puppy", "A puppy wumpus that is holding the shopkeeper captive")
-guard_puppy.set_health(10)
-guard_puppy.set_weakness("bone")
-shopkeeper.set_character1(guard_puppy)
-
-test_shopkeep = Salesman("Test Shop", "A tester shopkeeper")
-test_shopkeep.set_conversation("Hiya wanna buy smth gangster")
-test_shopkeep.set_good(pendant)
-test_shopkeep.set_price(pendant_price)
-test_price_amount = test_shopkeep.good_price
-cavern.set_character1(test_shopkeep)
-
 cavern.link_caves(mineshaft, "north")
 cavern.link_caves(fork, "south")
 grotto.link_caves(fork, "east")
@@ -134,16 +108,52 @@ temple.link_caves(city, "west")
 arena.link_caves(city, "east")
 swamp.link_caves(thicket, "east")
 
+harry = Enemy("Harry", "A dirty, smelly Wumpus")
+harry.set_conversation("At this fork in the road there is a giant hole to steep to go down normally and a large grotto that I will eat you in.")
+harry.set_weakness("vegemite")
+harry.set_health(10)
+fork.set_character1(harry)
+
+larry = Enemy("Larry", "An asian Wumpus")
+larry.set_conversation("You killed harry. I am Larry and I'm gonna eat your dog")
+larry.set_weakness("engrish")
+larry.set_health(10)
+fork.set_character2(larry)
+
+shopkeep = Salesman("Shopman", "A salesman to help you on your journey")
+shopkeep.set_conversation("Hello traveler I have some items to sell you for your Wump coins\nYou have: " + str(wump_coins) + " Wump coins to trade")
+shopkeep.set_good(library_key)
+shopkeep.set_price(library_key_price)
+shopkeeper.set_character2(shopkeep)
+
+guard_puppy = Enemy("Guard puppy", "A puppy wumpus that is holding the shopkeeper captive")
+guard_puppy.set_health(10)
+guard_puppy.set_weakness("bone")
+shopkeeper.set_character1(guard_puppy)
+
+test_shopkeep = Salesman("Test Shop", "A tester shopkeeper")
+test_shopkeep.set_conversation("Hiya wanna buy smth gangster")
+test_shopkeep.set_good(pendant)
+test_shopkeep.set_price(pendant_price)
+cavern.set_character1(test_shopkeep)
+
+
 current_cave = mineshaft
 dead = False
 while dead is False:
+    wump_coins_quantity = int(wump_coins.get_object_quantity())
+    pendant_quantity = int(pendant.get_object_quantity())
+    library_key_quantity = int(library_key.get_object_quantity())
+    clear_console()
     print("\n")
     current_cave.get_details()
     inhabited = current_cave.character1
-    print(wump_coins.get_object_quantity())
-    print(pendant.get_object_quantity())
-#    if current_cave.character1 is None:
-#        current_cave.set_character2
+    if wump_coins_quantity != 0:
+        print("you have " + str(wump_coins.get_object_quantity()) + " Wump coins")
+    if pendant_quantity != 0:
+        print("you have " + str(pendant.get_object_quantity()) + " Pendants")
+    if library_key_quantity != 0:
+        print("you have " + str(library_key.get_object_quantity()) + " Library keys")
     if inhabited is not None:
         inhabited.describe()
         if inhabited is not None and isinstance(inhabited, Enemy):
@@ -185,7 +195,16 @@ while dead is False:
                         print("You have purchased a Pendant for 30 Wump Coins")
                         input("\nPress enter to continue...")
                     else:
-                            print("You are too poor to buy a pendant. Come back after you fight some wumpus's with their wump coins")
+                            print("You are too poor to buy a pendant. Come back after you fight some enemies with their wump coins")
+                            input("\nPress enter to continue...")
+                if inhabited.shop == (library_key):
+                    if int(wump_coins.quantity) >= library_key_price:
+                        library_key.change_quantity(-1)
+                        wump_coins.change_quantity(30)
+                        print("You have purchased the Library Key for 30 Wump Coins")
+                        input("\nPress enter to continue...")
+                    else:
+                            print("You are too poor to buy the library key. Come back after you fight some enemies with their wump coins")
                             input("\nPress enter to continue...")
             if want_to_buy == "no":
                 print("Okay come again.")
