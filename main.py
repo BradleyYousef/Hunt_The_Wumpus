@@ -10,15 +10,16 @@ def clear_console():
     """Clear the console function that clears the screen"""
     os.system('cls' if os.name == 'nt' else 'clear')
 
-wump_coins = Inventory("coin")
-wump_coins.set_obj_quantity("0")
-wump_coins.set_obj_price("1")
-wump_coins_quantity = wump_coins.quantity
+wump_coins = Inventory("coin", "wump coin")
+wump_coins.set_obj_quantity("60")
+wump_coins.set_obj_price("0")
+wump_coins_quantity = int(wump_coins.get_object_quantity())
 
-pendant = Inventory("pendant")
+pendant = Inventory("pendant", "test pendant")
 pendant.set_obj_quantity("0")
 pendant.set_obj_price("30")
-pendant_price = pendant.get_object_price
+pendant_price = int(pendant.get_object_price())
+pendant_quantity = int(pendant.get_object_quantity())
 
 cavern = Cave("Cavern")
 cavern.set_description("A damp and dirty cave")
@@ -89,6 +90,7 @@ test_shopkeep = Salesman("Test Shop", "A tester shopkeeper")
 test_shopkeep.set_conversation("Hiya wanna buy smth gangster")
 test_shopkeep.set_good(pendant)
 test_shopkeep.set_price(pendant_price)
+test_price_amount = test_shopkeep.good_price
 cavern.set_character1(test_shopkeep)
 
 cavern.link_caves(mineshaft, "north")
@@ -138,6 +140,8 @@ while dead is False:
     print("\n")
     current_cave.get_details()
     inhabited = current_cave.character1
+    print(wump_coins.get_object_quantity())
+    print(pendant.get_object_quantity())
 #    if current_cave.character1 is None:
 #        current_cave.set_character2
     if inhabited is not None:
@@ -174,15 +178,15 @@ while dead is False:
             inhabited.get_shop_details()
             want_to_buy = input("Would you like to purchase the item?: ")
             if want_to_buy == "yes":
-                if 1 + 1 == 2: #wump_coins_quantity > 0 and wump_coins_quantity >= inhabited.good_price:
-                    print("You have purchased " + str(inhabited.get_good()) + " for " + str(inhabited.get_price))
-                    wump_coins -= inhabited.good_price
-                    if inhabited.shop == ("pendant"):
-                        pendant.set_obj_quantity += 1
-                    input("\nPress enter to continue...")
-                else:
-                    print("You are too poor to buy " + str(inhabited.shop) + ". Come back after you fight some wumpus's with their wump coins")
-                    input("\nPress enter to continue...")
+                if inhabited.shop == (pendant):
+                    if int(wump_coins.quantity) >= pendant_price:
+                        pendant.change_quantity(-1)
+                        wump_coins.change_quantity(30)
+                        print("You have purchased a Pendant for 30 Wump Coins")
+                        input("\nPress enter to continue...")
+                    else:
+                            print("You are too poor to buy a pendant. Come back after you fight some wumpus's with their wump coins")
+                            input("\nPress enter to continue...")
             if want_to_buy == "no":
                 print("Okay come again.")
                 input("\nPress enter to continue...")
