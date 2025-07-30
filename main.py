@@ -165,8 +165,13 @@ while dead is False:
     print("\nWhat would you like to do?: ")
     command = input("> ").lower()
     if command in ["north", "south", "west", "east"]:
-        current_cave = current_cave.move(command)
-        clear_console()
+        can_move_cave = true
+        if can_move_cave == true:
+            current_cave = current_cave.move(command)
+            clear_console()
+        else:
+            print("You cannot move here yet")
+            input("\nPress enter to continue...")
     elif command == "talk":
         if inhabited is not None:
             clear_console()

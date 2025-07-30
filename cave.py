@@ -1,3 +1,4 @@
+from inventory import Inventory #Imports the inventory class from the inventory.py file
 """Cave class for Hunt The Wumpus"""
 class Cave:
     """Class for creating the caves"""
@@ -7,6 +8,8 @@ class Cave:
         self.linked_caves = {}
         self.character1 = None
         self.character2 = None
+        self.unlocked = True
+        self.entry_requirement = None
 
     def set_name(self, cave_name):
         """Sets the name of the cave"""
@@ -43,8 +46,10 @@ class Cave:
 
     def move(self, direction):
         """Allows the player to move between caves"""
-        if direction in self.linked_caves:
+        if direction in self.linked_caves and self.unlocked == True:
             return self.linked_caves[direction]
+        elif direction in self.linked_caves and self.unlocked == False:
+            print("This cave is locked")
         else:
             print("You can't go that way")
             return self
@@ -64,5 +69,17 @@ class Cave:
     def set_character2(self, new_character):
         """Sets the current character in the cave"""
         self.character2 = new_character
+    
+    def lock_cave(self, is_locked):
+        """Allows the caves to have entry requirements"""
+        self.unlocked = is_locked
+    
+    def open_cave(self, opened_item):
+        """Opens the cave"""
+        self.entry_requirement = opened_item
+        if opened_item.isinstance(Inventory):
+            #work from here
+
+        
 
 #End-of-file (EOF)
