@@ -4,6 +4,7 @@ from character import Enemy #Imports the enemy class from the character.py file
 from character import Character #Imports the character class from the character.py file
 from character import Salesman #Imports the salesman class from the character.py file
 from inventory import Inventory #Imports the inventory class from the inventory.py file
+import random #Imports the ability to add randomness
 import os #Imports the operating system
 
 def clear_console():
@@ -148,6 +149,7 @@ while dead is False:
     print("\n")
     current_cave.get_details()
     inhabited = current_cave.character1
+    print("\n---------")
     if wump_coins_quantity != 0:
         print("you have " + str(wump_coins.get_object_quantity()) + " Wump coins")
     if pendant_quantity != 0:
@@ -169,11 +171,15 @@ while dead is False:
         if inhabited is not None:
             clear_console()
             inhabited.talk()
+            input("\nPress enter to continue...")
     elif command == "fight":
         if inhabited is not None and isinstance(inhabited, Enemy):
             fight_with = input("What do you want to fight with?: ")
             if inhabited.fight(fight_with) is True:
                 print("\nBravo, you win the battle.")
+                money_dropped = random.randint(30, 90)
+                wump_coins.change_quantity(-money_dropped)
+                print(f"You have obtained {money_dropped} wump coins from defeating {current_cave.character1}")
                 current_cave.character1 = current_cave.character2
                 current_cave.character2 = None
                 input("\nPress enter to continue...")
