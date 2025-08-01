@@ -9,6 +9,9 @@ class Character:
         self.conversation = None
         self.health = None
 
+    def __str__(self):
+        return self.name
+
     def describe(self):
         """Method to display the attributes of the character"""
         print("\n" + self.name + " is here!")
@@ -97,15 +100,3 @@ class Enemy(Character):
         else:
             print(self.name + " swallows you whole! You died.")
             return False
-    
-#    def set_drop(self, loot_item):
-#        """Sets the loot item for an enemy"""
-#        self.drop == loot_item
-
-#    def loot(self):
-  #      """Gives the loot item to the player"""
-  #      if isinstance.__closure__  
-
-#class Ally(Character):
- #   """Class for ally characters"""
-  ##     super().__init__(char_name, char_description)
