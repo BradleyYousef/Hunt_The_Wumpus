@@ -46,9 +46,10 @@ class Cave:
 
     def move(self, direction):
         """Allows the player to move between caves"""
-        if direction in self.linked_caves and self.unlocked == True:
+        new_cave = self.linked_caves[direction]
+        if direction in self.linked_caves and new_cave.unlocked == True:
             return self.linked_caves[direction]
-        elif direction in self.linked_caves and self.unlocked == False:
+        elif direction in self.linked_caves and new_cave.unlocked == False:
             print("This cave is locked")
         else:
             print("You can't go that way")
@@ -74,12 +75,30 @@ class Cave:
         """Allows the caves to have entry requirements"""
         self.unlocked = is_locked
     
-    def open_cave(self, opened_item):
-        """Opens the cave"""
-        self.entry_requirement = opened_item
-        if opened_item.isinstance(Inventory):
-            #work from here
+    def set_entry_requirement(self, open_item):
+        """Sets the item and quantity required to unlock the cave"""
+        self.entry_requirement = open_item
+        self.unlocked = False  # Lock the cave until requirement is met
 
-        
+    def open_cave(self, player_inventory):
+        """
+        Attempts to unlock the cave if the player has the required item and quantity.
+        player_inventory: a dictionary or list of Inventory objects
+        """
+        if not self.entry_requirement:
+            print("No entry requirement set for this cave.")
+            return
+
+        required_item_name = self.entry_requirement['item']
+        required_quantity = self.entry_requirement['quantity']
+
+        for item in player_inventory:
+            if item.name == required_item_name and item.get_object_quantity() >= required_quantity:
+                self.unlocked = True
+                print(f"The cave '{self.name}' is now unlocked!")
+                return
+
+        print(f"You need at least {required_quantity} of '{required_item_name}")
+            
 
 #End-of-file (EOF)

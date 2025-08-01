@@ -25,6 +25,8 @@ library_key.set_obj_quantity("0")
 library_key.set_obj_price("30")
 library_key_price = int(library_key.get_object_price())
 
+player_inventory = [wump_coins, pendant, library_key]
+
 cavern = Cave("Cavern")
 cavern.set_description("A damp and dirty cave")
 grotto = Cave("Grotto")
@@ -47,6 +49,8 @@ shopkeeper = Cave("Shopkeeper's Abode")
 shopkeeper.set_description("A cabin hidden in the moss where the shopkeeper resides")
 hole = Cave("Giant Hole")
 hole.set_description("A giant hole that seems hard to get out of")
+hole.set_entry_requirement({'item': 'pendant', 'quantity': 1})
+hole.lock_cave(False)
 stairway = Cave("Royal Stairway")
 stairway.set_description("A royal stairway with many armour stands lining the path")
 citadel = Cave("Citadel")
@@ -145,7 +149,7 @@ while dead is False:
     wump_coins_quantity = int(wump_coins.get_object_quantity())
     pendant_quantity = int(pendant.get_object_quantity())
     library_key_quantity = int(library_key.get_object_quantity())
-    clear_console()
+    #clear_console()
     print("\n")
     current_cave.get_details()
     inhabited = current_cave.character1
@@ -165,10 +169,14 @@ while dead is False:
     print("\nWhat would you like to do?: ")
     command = input("> ").lower()
     if command in ["north", "south", "west", "east"]:
-        can_move_cave = true
-        if can_move_cave == true:
-            current_cave = current_cave.move(command)
-            clear_console()
+        can_move_cave = True
+        newer_cave = current_cave.linked_caves.get(command)
+        if newer_cave:
+            newer_cave.open_cave(player_inventory)
+            if newer_cave.unlocked:
+                current_cave = newer_cave
+            else:
+                print("The cave is still locked.")
         else:
             print("You cannot move here yet")
             input("\nPress enter to continue...")
